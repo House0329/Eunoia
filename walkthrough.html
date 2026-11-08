@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Eunoia — Feature Walkthrough</title>
+  <style>
+    :root {
+      --bg0: #0d071c;
+      --bg1: #1a103c;
+      --primary: #7c3aed;
+      --accent: #2dd4bf;
+      --text: #f8fafc;
+      --muted: #9ca3af;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "Segoe UI", system-ui, sans-serif;
+      color: var(--text);
+      background: linear-gradient(160deg, var(--bg1), var(--bg0));
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 32px 20px 48px;
+    }
+    h1 {
+      margin: 0 0 8px;
+      font-size: clamp(1.6rem, 4vw, 2.2rem);
+      letter-spacing: 0.04em;
+    }
+    .sub {
+      margin: 0 0 28px;
+      color: var(--muted);
+      max-width: 640px;
+      text-align: center;
+      line-height: 1.5;
+    }
+    .player {
+      width: min(960px, 100%);
+      border-radius: 18px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.1);
+      box-shadow: 0 24px 80px rgba(124, 58, 237, 0.25);
+      background: #000;
+    }
+    video { width: 100%; display: block; max-height: 70vh; }
+    .links {
+      margin-top: 24px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+    }
+    a.btn {
+      text-decoration: none;
+      color: #fff;
+      background: var(--primary);
+      padding: 12px 18px;
+      border-radius: 999px;
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+    a.btn.secondary {
+      background: transparent;
+      border: 1px solid rgba(45, 212, 191, 0.55);
+      color: var(--accent);
+    }
+  </style>
+</head>
+<body>
+  <h1>EUNOIA</h1>
+  <p class="sub">
+    Feature &amp; interaction walkthrough — IELTS learning app with gamification,
+    social practice, and 3D collectibles.
+  </p>
+  <div class="player">
+    <video controls playsinline preload="metadata"
+      poster=""
+      src="https://github.com/House0329/Eunoia/releases/download/v1.0-walkthrough/Eunoia.mp4">
+      Your browser does not support embedded video.
+      <a href="https://github.com/House0329/Eunoia/releases/download/v1.0-walkthrough/Eunoia.mp4">Download the walkthrough</a>
+    </video>
+  </div>
+  <div class="links">
+    <a class="btn" href="./">Open Live Web Demo</a>
+    <a class="btn secondary" href="https://github.com/House0329/Eunoia/releases/tag/v1.0-walkthrough">Download MP4</a>
+  </div>
+</body>
+</html>
