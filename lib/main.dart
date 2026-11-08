@@ -6,6 +6,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'core/auth/test_credentials.dart';
+import 'core/config/preview_demo_config.dart';
 import 'core/i18n/app_locale.dart';
 import 'core/providers/community_social_providers.dart';
 import 'core/providers/service_providers.dart';
@@ -19,7 +20,10 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final AppDataService appData = AppDataService();
   await appData.initialize();
-  if (kDebugMode) {
+  if (PreviewDemoConfig.enabled) {
+    // 预览包：启动前完成登录，保证首屏即为测试账号会话。
+    await _ensurePreviewTestSession(appData);
+  } else if (kDebugMode) {
     unawaited(_ensureDebugTestAccount(appData));
   }
   final ProviderContainer container = ProviderContainer(
@@ -46,6 +50,30 @@ Future<void> _ensureDebugTestAccount(AppDataService svc) async {
     );
   } catch (_) {
     // 用户已存在或格式不符等：可改用手动登录或注册页。
+  }
+}
+
+/// 作品预览：确保测试账号存在并以该身份进入应用。
+Future<void> _ensurePreviewTestSession(AppDataService svc) async {
+  try {
+    if (svc.currentUser?.email ==
+        AppDataService.accountToSyntheticEmail(TestCredentials.account)) {
+      return;
+    }
+    await svc.signInWithPassword(
+      email: TestCredentials.account,
+      password: TestCredentials.password,
+    );
+  } catch (_) {
+    try {
+      await svc.signUpWithPassword(
+        email: TestCredentials.account,
+        password: TestCredentials.password,
+        displayName: 'Demo User',
+      );
+    } catch (_) {
+      // 忽略：仍可进入未登录态，避免预览白屏。
+    }
   }
 }
 
